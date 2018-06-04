@@ -5,16 +5,20 @@ import java.util.Set;
 import org.vaadin.viritin.util.HtmlElementPropertySetter;
 
 import com.generation_p.hotel_demo.entity.Hotel;
+import com.generation_p.hotel_demo.services.FacilitiesService;
 import com.generation_p.hotel_demo.services.HotelDataProvider;
 import com.generation_p.hotel_demo.services.ServiceProvider;
 import com.generation_p.hotel_demo.views.form.HotelForm;
 import com.vaadin.data.provider.ConfigurableFilterDataProvider;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.SerializablePredicate;
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.renderers.HtmlRenderer;
 import com.vaadin.ui.themes.ValoTheme;
@@ -29,12 +33,15 @@ public class HotelView extends AbstractEntityView {
 	private Grid<Hotel> grid = new Grid<>(Hotel.class);
 	private TextField filterText = new TextField();
 	private ConfigurableFilterDataProvider<Hotel, Void, String> dataProvider;
+	private FacilitiesService facility = new FacilitiesService();
 
 	/**
 	 * Method that is called each time on view enter
 	 */
 	@Override
 	public void enter(ViewChangeEvent event) {
+		fillFacilities.setStyleName(ValoTheme.BUTTON_TINY);
+		
 		form = new HotelForm(this);
 		HorizontalLayout controlPannel = new HorizontalLayout();
 		initControls(controlPannel);
@@ -60,6 +67,13 @@ public class HotelView extends AbstractEntityView {
 		s1.setProperty("type", "search");
 
 		HorizontalLayout buttons = getButtons();
+		fillFacilities.addClickListener(l -> {
+			try {
+				facility.click();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		});
 		buttons.removeComponent(editButton);
 		controlPannel.addComponents(filterText, buttons);
 	}
@@ -87,6 +101,7 @@ public class HotelView extends AbstractEntityView {
 		
 		dataProvider = new HotelDataProvider().withConfigurableFilter();
 		grid.setDataProvider(dataProvider);
+		grid.setId("HotelGrid");
 
 		updateList();
 	}

@@ -29,7 +29,9 @@ public class CategoryView extends AbstractEntityView {
 		form = new CategoryForm(this);
 		// add buttons
 		HorizontalLayout main = new HorizontalLayout(list, form);
-		addComponents(getButtons(), main);
+		HorizontalLayout buttons = getButtons();
+		buttons.removeComponent(fillFacilities);
+		addComponents(buttons, main);
 		updateList();
 
 		list.setItemCaptionGenerator(HotelCategory::getCategoryName);
