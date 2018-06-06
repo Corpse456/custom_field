@@ -29,7 +29,8 @@ public class HotelForm extends AbstractForm<Hotel> {
 	private FreeServiceField freeService = new FreeServiceField("Fee services");
 
 	private HotelService hotelDAO;
-	private CategoryService categoryDAO;
+	@SuppressWarnings ("unused")
+    private CategoryService categoryDAO;
 
 	private Hotel hotel;
 	private HotelView hotelUI;
