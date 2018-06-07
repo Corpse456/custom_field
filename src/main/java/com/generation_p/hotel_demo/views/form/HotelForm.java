@@ -27,6 +27,7 @@ public class HotelForm extends AbstractForm<Hotel> {
 	private TextField url = new TextField("URL");
 	private TextArea description = new TextArea("Description");
 	private FreeServiceField freeService = new FreeServiceField("Fee services");
+	private FacilitiesField facilities = new FacilitiesField();
 
 	private HotelService hotelDAO;
 	@SuppressWarnings ("unused")
@@ -41,7 +42,7 @@ public class HotelForm extends AbstractForm<Hotel> {
 		this.hotelDAO = ServiceProvider.getHotelService();
 		this.categoryDAO = ServiceProvider.getCategoryService();
 
-		addComponents(name, address, rating, category, freeService, operatesFrom, url, description, buttons);
+		addComponents(name, address, rating, category, freeService, facilities, operatesFrom, url, description, buttons);
 		category.setItems(ServiceProvider.getCategoryService().findAll());
 		category.setItemCaptionGenerator(item -> item.getCategoryName());
 		category.setWidth(11, Unit.EM);
@@ -68,6 +69,7 @@ public class HotelForm extends AbstractForm<Hotel> {
 				.withConverter(new DateConverter()).bind(Hotel::getOperatesFrom, Hotel::setOperatesFrom);
 		binder.forField(description).bind(Hotel::getDescription, Hotel::setDescription);
 		binder.forField(freeService).bind(Hotel::getFreeServices, Hotel::setFreeServices);
+		binder.forField(facilities).bind(Hotel::getFacilities, Hotel::setFacilities);
 		// binder.bindInstanceFields(this);
 	}
 

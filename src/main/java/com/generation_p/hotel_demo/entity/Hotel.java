@@ -30,7 +30,9 @@ public class Hotel extends AbstractEntity implements Serializable, Cloneable {
 
 	@Embedded
 	private FreeServices freeServices;
-
+	
+	private String facilities;
+	
 	private String url;
 
 	private String description = "";
@@ -111,4 +113,11 @@ public class Hotel extends AbstractEntity implements Serializable, Cloneable {
 		this.freeServices = freeServices;
 	}
 
+    public String getFacilities () {
+        return facilities;
+    }
+
+    public void setFacilities (String facilities) {
+        this.facilities = facilities;
+    }
 }
