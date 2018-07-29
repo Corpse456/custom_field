@@ -37,8 +37,6 @@ public class HotelView extends AbstractEntityView {
 	 */
 	@Override
 	public void enter(ViewChangeEvent event) {
-		fillFacilities.setStyleName(ValoTheme.BUTTON_TINY);
-		
 		form = new HotelForm(this);
 		HorizontalLayout controlPannel = new HorizontalLayout();
 		initControls(controlPannel);
@@ -64,13 +62,7 @@ public class HotelView extends AbstractEntityView {
 		s1.setProperty("type", "search");
 
 		HorizontalLayout buttons = getButtons();
-		fillFacilities.addClickListener(l -> {
-			try {
-				facility.click();
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
-		});
+		fillFacilities.addClickListener(l -> facility.click());
 		buttons.removeComponent(editButton);
 		controlPannel.addComponents(filterText, buttons);
 	}

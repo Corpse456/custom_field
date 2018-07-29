@@ -20,7 +20,7 @@ public class FacilitiesService {
 	protected static final String BASE_URL = "http://localhost:8080";
 	private HotelService service = ServiceProvider.getHotelService();
 
-	public void click() throws InterruptedException {
+	public void click() {
 		System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
 		driver = new ChromeDriver();
 
